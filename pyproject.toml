@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "crypto-monitor"
+version = "0.1.0"
+description = ""
+authors = ["Rist <www10177@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+binance-connector = "^3.6.0"
+pybit = "^5.6.2"
+python-dotenv = "^1.0.1"
+duckdb = "^0.10.1"
+binance-futures-connector = "^4.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
