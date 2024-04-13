@@ -56,11 +56,8 @@ def get_futures(username):
     msg = ""
     all_result = []
     for (key,secret,exchange, name) in account_infos:
-        sub_profit=0
         if exchange == 'Binance':
             all_result.append( (exchange,name ,get_binance_futures(key,secret)))
-            # symbol =  
-            # r= requests.get(f"https://fapi.binance.com/fapi/v1/premiumIndex?symbol={symbol}")
             
     #get funding rate of each pair, support binance now 
     # symbol = set()
@@ -74,12 +71,13 @@ def get_futures(username):
     all_profit= 0
     for exg,account_name, account_result in all_result : 
         #If position existed in this account 
+        sub_profit=0
         if len(account_result) >0:
             msg += f"[{exg}]{account_name}\n"
             #Get all trading pairs
             for symbol, income in account_result.items():
                 funding_rate = 100*all_funding_rate.get(symbol,-99) #in percentage
-                msg += f"{symbol}({funding_rate:.4f}%): {income:.3f}\n"
+                msg += f"{symbol}({'-' if income< 0 else ''}{funding_rate:.4f}%): {income:.3f}\n"
                 sub_profit += income
 
             msg += f"Sub-Profit : {sub_profit:.4f}\n"
