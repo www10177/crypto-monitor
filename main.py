@@ -3,14 +3,18 @@ from binance.spot import Spot
 from dotenv import load_dotenv
 import os 
 import json
-import duckdb
 import socket
 from datetime import datetime
 import asyncio
 import time
 import requests
+import psycopg2
 load_dotenv()
-db= duckdb.connect(os.environ.get("DUCKDB_PATH"))
+conn= psycopg2.connect(
+    dbname=os.environ.get("DB_NAME"),
+    user=os.environ.get("DB_USER")
+)
+cur = conn.cursor()
 
 def send_msg(to:str, msg:str,silent=False):
     print("send MSG ")
@@ -44,7 +48,9 @@ def get_binance_futures(key,secret)->list:
 
 
 def get_futures(username): 
-    account_infos= db.execute(f"select APIKey, APISecret, Exchange, AccountName from AccountInfo where TGUserName == ?",[username]).fetchall()
+    cur.execute(f"select api_key, api_secret, exchange, account_name from account_info where tg_username = %s",(username,))
+    account_infos = cur.fetchall()
+    print(account_infos)
     msg = ""
     all_profit= 0
     for (key,secret,exchange, name) in account_infos:
