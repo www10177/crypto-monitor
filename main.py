@@ -50,7 +50,6 @@ def get_binance_futures(key,secret)->list:
 def get_futures(username): 
     cur.execute(f"select api_key, api_secret, exchange, account_name from account_info where tg_username = %s",(username,))
     account_infos = cur.fetchall()
-    print(account_infos)
     msg = ""
     all_profit= 0
     for (key,secret,exchange, name) in account_infos:
