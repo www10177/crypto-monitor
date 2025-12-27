@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  kamino-monitor:
+    build: .
+    container_name: kamino_monitor
+    env_file:
+      - .env
+    volumes:
+      - /etc/apprise:/etc/apprise:ro
+      - kamino_data:/app/data
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    restart: unless-stopped
+
+volumes:
+  kamino_data:

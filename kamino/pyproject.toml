@@ -1,0 +1,12 @@
+[project]
+name = "kamino-monitor"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "apprise>=1.9.6",
+    "loguru>=0.7.3",
+    "requests>=2.32.5",
+    "schedule>=1.2.2",
+]
